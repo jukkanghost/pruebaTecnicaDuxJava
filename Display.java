@@ -16,6 +16,8 @@ public class Display {
         
     }
 
+    /*Mapas que traducen el puntaje usado en la simulacion a convenio de tenis */
+
     private static Map<Integer, String> createPointsDisplay() {
         Map<Integer,String> myMap = new HashMap<Integer,String>();
         myMap.put(0, "0");
@@ -38,6 +40,8 @@ public class Display {
         return myMap;
     }
 
+    /*Funcion que muestra el ganador del partido y pregunta por revancha */
+
     public void showWinner(Player winner) {
         System.out.println("----------------------------------------------------------------------------------------");
         Formatter formatter = new Formatter();
@@ -47,6 +51,8 @@ public class Display {
         System.out.println("----------------------------------------------------------------------------------------");
         formatter.close();
     }
+
+    /*Funcion que muestra por consola las estadisticas de partido */
 
     public void show(List<Integer> currentGame, Player serving, List<Boolean> advantage, boolean tiebreak) {
         List<Player> players = match.getPlayers();

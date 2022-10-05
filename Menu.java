@@ -14,14 +14,14 @@ public class Menu {
         this.scanner = new Scanner(System.in);
     }
 
+    /* Despues de tener el input del usuario lanza la simulacion */
     public void launchSimulator() {
         getInput();
-
         simulator = new Simulator(this.playerOne, this.playerTwo, this.tournament, this.totalSets, probabilityPlayer1);
         simulator.playMatch();
-       
     }
 
+    /* Espera respuesta de revancha y lanza o no la simulacion nuevamente */
     public void revenge() {
         if(scanner.hasNext("y|n")) {
             String revenge = scanner.next();
@@ -32,6 +32,7 @@ public class Menu {
         }
     }
 
+    /* Espera el input del usuario y lo valida */
     private void getInput() {
         System.out.println("Enter player 1:");
         if(scanner.hasNext("[A-Za-z0-9]*")) {

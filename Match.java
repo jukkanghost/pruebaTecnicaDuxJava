@@ -28,6 +28,51 @@ public class Match {
         score.add(0);
         matchEnd = false;
     }
+    
+    /* Principal functions */
+    
+    /* Chequea si se ha terminado el partido */
+    private void matchEnd() {
+        this.score.forEach(score -> {if(score == this.matchTotalSets) {
+            setMatchEnd();
+        } });
+    }
+    
+    /* Agrega un set ganado al jugador correspondiente */
+    public void addScore(Player player) {
+        this.score.set(player.getId(), this.score.get(player.getId()) + 1);
+        matchEnd();
+    }
+    
+    /* Crea y agrega un set nuevo */
+    public int addNewSet() {
+        Set set = new Set();
+        this.sets.add(set);
+        return this.sets.lastIndexOf(set);
+    }
+
+    /* Setters */
+    public void setWinner(Player player) {
+        this.winner = player;
+    }
+    
+    private void setMatchEnd(){
+        this.matchEnd = true;
+    }
+    
+    public void setTournamentName (String tournamentName) {
+        this.tournamentName = tournamentName;
+    }
+
+    public void setProbabiltyPlayer1 (int probabilityPlayer1) {
+        this.probabilityPlayer1 = probabilityPlayer1;
+    }
+
+    public void setProbabiltyPlayer2 (int probabilityPlayer2) {
+        this.probabilityPlayer2 = probabilityPlayer2;
+    }
+    
+    /* Getters */
 
     public String getTournament(){
         return this.tournamentName;
@@ -51,50 +96,12 @@ public class Match {
         return 0;
     }
 
-    private void matchEnd() {
-        this.score.forEach(score -> {if(score == this.matchTotalSets) {
-            setMatchEnd();
-        } });
-    }
-
-    public void addScore(Player player) {
-        this.score.set(player.getId(), this.score.get(player.getId()) + 1);
-        matchEnd();
-    }
-
-    public void setWinner(Player player) {
-        this.winner = player;
-    }
-
-    private void setMatchEnd(){
-        this.matchEnd = true;
-    }
-
     public boolean getMatchEnd() {
         return this.matchEnd;
     }
 
     public List<Set> getAllSets() {
         return this.sets;
-    }
-
-
-    public void setTournamentName (String tournamentName) {
-        this.tournamentName = tournamentName;
-    }
-
-    public void setProbabiltyPlayer1 (int probabilityPlayer1) {
-        this.probabilityPlayer1 = probabilityPlayer1;
-    }
-
-    public void setProbabiltyPlayer2 (int probabilityPlayer2) {
-        this.probabilityPlayer2 = probabilityPlayer2;
-    }
-   
-    public int addNewSet() {
-        Set set = new Set();
-        this.sets.add(set);
-        return this.sets.lastIndexOf(set);
     }
 
     public List<Player> getPlayers() {

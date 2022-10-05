@@ -6,7 +6,6 @@ import java.util.TimerTask;
 
 public class Simulator {
     
-    
     private boolean end;
     private Random random;
     private Match match;
@@ -23,7 +22,6 @@ public class Simulator {
     private static final int TIMER_DELAY_MS = 300;
 
     public Simulator(Player player1, Player player2, String tournamentName, int totalSets, int probabilityPlayer1) {
-
         this.match = new Match(player1, player2, tournamentName, totalSets, probabilityPlayer1);
         this.end = false;
         this.servingFirst = true;
@@ -33,9 +31,11 @@ public class Simulator {
         this.players = this.match.getPlayers();
         this.display = new Display(this.match);
         whoServe();
-
     }
 
+    /* Principal functions */
+
+    /* Empieza el partido, crea el timer y lanza la tarea de jugar puntos periodicamente */
     public void playMatch() {
         timer = new Timer();
         timerTask = new TimerTask() {
@@ -46,19 +46,19 @@ public class Simulator {
         timer.schedule(timerTask, 0, TIMER_DELAY_MS);
     }
 
+    /* Juega el punto, y sigue la corriente del partido. Llama a las funciones de
+     * Game, de Set y de Display para el control y la continuidad del partido.
+     */
     public void playPoint() {
         if(!match.getMatchEnd()) {
-            
+
             this.winner = whoWonPoint();
             match.getSet(currentSet).getGame(currentGame).addPointsPlayer(this.winner);
 
-            
-
             if(match.getSet(currentSet).getGame(currentGame).getGameEnd() ) {
-    
+
                 match.getSet(currentSet).getGame(currentGame).setWinnerGame(this.winner);
                 match.getSet(currentSet).addScore(this.winner);
-                
                 if(!match.getSet(currentSet).getSetEnd()) {
                     currentGame = match.getSet(currentSet).addNewGame();
                     if(match.getSet(currentSet).getTiebreak()) {
@@ -72,7 +72,6 @@ public class Simulator {
                     currentGame = match.getSet(currentSet).addNewGame();
                     whoServe();
                 }
-                
             }
 
             display.show(match.getSet(currentSet).getGame(currentGame).getScore(),
@@ -90,10 +89,7 @@ public class Simulator {
 
     }
 
-    public boolean getEnd() {
-        return this.end;
-    }
-
+    /* Elige el jugador que saca en cada Game. Empezando aleatoriamente la primera vez */
     private void whoServe() {
         if(this.servingFirst){
             int randomServe = random.nextInt(2);
@@ -113,14 +109,8 @@ public class Simulator {
         }
     }
 
-    
-    /*One way to do this is, take a pseudo random generator (Math.random()) 
-    and let it generate a float between 0 and 1. You would then multiply it 
-    with 100 to get into the range of 0 to 100. If this final value is smaller 
-    than the percent of the chance, the participant would win. */
-
+    /* Elige quien gano el punto teniendo en cuenta las probabilidades seteadas */
     public Player whoWonPoint () {
-
         double rand = random.nextDouble()*100;
         int probabilityPlayer1 = match.getProbabiltyPlayer1();
         if(rand < probabilityPlayer1) {
@@ -130,9 +120,15 @@ public class Simulator {
         else {
             System.out.println("player 2 won");
             return match.getPlayers().get(1);
-
         }
     }
+
+    /* Getters */
+
+    public boolean getEnd() {
+        return this.end;
+    }
+
 
     
 }

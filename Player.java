@@ -8,6 +8,7 @@ public class Player {
         setId(playerId);
     }
     
+    /* Setters */
     public void setName(String name) {
         this.name = name;
     }
@@ -15,6 +16,8 @@ public class Player {
     public void setId(int playerId) {
         this.playerId = playerId;
     }
+
+    /* Setters */
 
     public String getName() {
         return this.name;
